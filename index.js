@@ -2,6 +2,9 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import config from './config/config';
+import authRoutes from './routes/auth';
+import studentRoutes from './routes/student';
+import seatRoutes from './routes/seats';
 
 const app = express();
 app.use(express.json());
@@ -23,6 +26,10 @@ const connectDB = async () => {
   return con;
 };
 connectDB();
+
+app.use('/api/auth', authRoutes);
+app.use('/api/students', studentRoutes);
+app.use('/api/seats', seatRoutes);
 
 app.use('/', (req, res) => {
   res.status(200).json({
